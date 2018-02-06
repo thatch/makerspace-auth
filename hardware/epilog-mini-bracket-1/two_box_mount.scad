@@ -29,6 +29,44 @@ module Plate(cap_size) {
   }
 }
 
-Plate(cap_size=25,$fn=128);
-translate([plate_width+4,0])
-Plate(cap_size=4.2,$fn=128);
+module Main() {
+  Plate(cap_size=25,$fn=128);
+  translate([plate_width+4,0])
+    Plate(cap_size=4.2,$fn=128);
+}
+
+module CapHead(d,h) {
+  color([0.8,0.5,0.5]) {
+    translate([0,0,-h]) cylinder(d=d,h=h);
+    cylinder(d=d*1.5,h=d);
+  }
+}
+
+module Leader(h) {
+  color([0.5,0.5,0.5,0.3]) cylinder(d=1,h=h);
+}
+
+module GhostBox(dims) {
+  color([0.5,0.5,0.5,0.3]) cube(dims);
+}
+
+module Exploded() {
+  linear_extrude(height=6) Plate(cap_size=25,$fn=128);
+  translate([0,0,80]) linear_extrude(height=6) Plate(cap_size=4.2,$fn=128);
+  for(p = box_hole_locations) {
+    translate(p) {
+      translate([0,0,-60]) scale([1,1,-1]) CapHead(4,20,$fn=32);
+      translate([0,0,-40]) Leader(160);
+    }
+  }
+  for(p = frame_hole_locations) {
+    translate(p) {
+      translate([0,0,130]) CapHead(4,20,$fn=32);
+      translate([0,0,-20]) Leader(130);
+    }
+  }
+  translate([20,80,120]) GhostBox([70,180,50]);
+  translate([115,90,120]) GhostBox([100,200,50]);
+}
+
+rotate([90,0,0]) Exploded();
