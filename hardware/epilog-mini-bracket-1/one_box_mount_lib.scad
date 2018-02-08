@@ -1,13 +1,10 @@
-box_hole_locations=[
-  [30,107],
-  [80,107],
-  [130,107],
-  [217,107],
+box_center = [120,160];
 
-  [30,255],
-  [80,255],
-  [130,294],
-  [217,294],
+box_hole_locations=[
+  [box_center[0] - 70, box_center[1] - 70],
+  [box_center[0] + 70, box_center[1] - 70],
+  [box_center[0] - 70, box_center[1] + 70],
+  [box_center[0] + 70, box_center[1] + 70],
 ];
 
 frame_hole_locations=[
@@ -51,8 +48,8 @@ module GhostBox(dims) {
 }
 
 module Exploded() {
-  linear_extrude(height=6) Plate(cap_size=25,$fn=128);
-  translate([0,0,80]) linear_extrude(height=6) Plate(cap_size=4.2,$fn=128);
+  linear_extrude(height=6) Inner();
+  translate([0,0,80]) linear_extrude(height=6) Outer();
   for(p = box_hole_locations) {
     translate(p) {
       translate([0,0,-60]) scale([1,1,-1]) CapHead(4,20,$fn=32);
@@ -65,8 +62,13 @@ module Exploded() {
       translate([0,0,-20]) Leader(130);
     }
   }
-  translate([20,80,120]) GhostBox([70,180,50]);
-  translate([115,90,120]) GhostBox([100,200,50]);
+  translate([box_center[0],box_center[1],120]) translate([-100,-100]) GhostBox([200,200,90]);
 }
 
-rotate([90,0,0]) Exploded();
+module Inner() {
+  Plate(cap_size=25,$fn=128);
+}
+
+module Outer() {
+  Plate(cap_size=4.2,$fn=128);
+}
