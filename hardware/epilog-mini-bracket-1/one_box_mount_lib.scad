@@ -1,10 +1,15 @@
 box_center = [120,160];
+box_size = [188,192];
+
+box_hole_pattern = [
+  [70, 70],
+  [70, -70],
+  [-70, 70],
+  [-70, -70],
+];
 
 box_hole_locations=[
-  [box_center[0] - 70, box_center[1] - 70],
-  [box_center[0] + 70, box_center[1] - 70],
-  [box_center[0] - 70, box_center[1] + 70],
-  [box_center[0] + 70, box_center[1] + 70],
+  for (p = box_hole_pattern) box_center + p
 ];
 
 frame_hole_locations=[
@@ -62,7 +67,7 @@ module Exploded() {
       translate([0,0,-20]) Leader(130);
     }
   }
-  translate([box_center[0],box_center[1],120]) translate([-100,-100]) GhostBox([200,200,90]);
+  translate([box_center[0],box_center[1],120]) translate([-100,-100]) GhostBox([box_size[0],box_size[1],90]);
 }
 
 module Inner() {
@@ -71,4 +76,14 @@ module Inner() {
 
 module Outer() {
   Plate(cap_size=4.2,$fn=128);
+}
+
+module HoleTemplate() {
+  $fn=32;
+  difference() {
+    square(box_size, center=true);
+    for(p = box_hole_pattern) {
+      translate(p) circle(d=3);
+    }
+  }
 }
