@@ -70,12 +70,22 @@ module Exploded() {
   translate([box_center[0],box_center[1],120]) translate([-100,-100]) GhostBox([box_size[0],box_size[1],90]);
 }
 
+module ZiptieMount() {
+  for(x=[200,210]) translate([x,30]) square([3,6.5], center=true);
+}
+
 module Inner() {
-  Plate(cap_size=25,$fn=128);
+  difference() {
+    Plate(cap_size=25,$fn=128);
+    hull() ZiptieMount();
+  }
 }
 
 module Outer() {
-  Plate(cap_size=4.2,$fn=128);
+  difference() {
+    Plate(cap_size=4.2,$fn=128);
+    ZiptieMount();
+  }
 }
 
 module HoleTemplate() {
