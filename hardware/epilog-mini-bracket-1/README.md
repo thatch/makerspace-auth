@@ -1,8 +1,26 @@
+## One-box version
+
+Very spacious, plenty of room to add an internal speaker.
+
+![Exploded view](one_box_mount_demo.png)
+
+| Item       | Qty |
+| ---------- | --- |
+| M4x14      | 8   |
+| M4 nut     | 8   |
+| M4 (fender) washer | 8   |
+| #8-32 x 7/8" or 1" | 2   |
+
 ## Two-box version
 
-![Exploded view](two_box_mount_transparent.png)
+This version allows you to put a Power Switch Tail in the rear box, while the
+front one houses the Pi, buttons, and badge reader.
 
-This requires 8 screws and nuts to mount your boxes, and 2 longer #8 (M4 works
-for a couple of threads) screws to go into your laser.
+![Exploded view](two_box_mount_demo.png)
 
-
+| Item       | Qty |
+| ---------- | --- |
+| M4x14      | 4   |
+| M4 nut     | 4   |
+| M4 (fender) washer | 4   |
+| #8-32 x 7/8" or 1" | 2   |
