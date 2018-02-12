@@ -1,11 +1,14 @@
 box_center = [120,160];
 box_size = [188,192];
 
+
+// Non-square pattern intentional; avoid colliding with pi bracket and reduce
+// number of possible wrong orientations by half.
 box_hole_pattern = [
-  [70, 70],
-  [70, -70],
-  [-70, 70],
-  [-70, -70],
+  [70, 60],
+  [70, -60],
+  [-70, 60],
+  [-70, -60],
 ];
 
 box_hole_locations=[
@@ -95,5 +98,10 @@ module HoleTemplate() {
     for(p = box_hole_pattern) {
       translate(p) circle(d=3);
     }
+    translate([0,10]) text("(place on back of box)", halign="center", size=8);
+    translate([0,-10]) text("(verify 5 holes at bottom)", halign="center", size=8);
+    translate([80,40]) text("Badge reader (17mm) ->", halign="right", size=5);
+    translate([-80,-40]) text("<- Power, ethernet, etc", halign="left", size=5);
+    translate([0,60]) text("4x 4.2mm", halign="center", size=5);
   }
 }
